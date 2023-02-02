@@ -39,7 +39,7 @@ class SimpleServiceTest {
     void testSaveAllAndFailWhenSequenceExists() {
         assertThrows(DataIntegrityViolationException.class, () -> {
             try (Connection con = dataSource.getConnection(); Statement st = con.createStatement();) {
-                st.execute("insert into `hibernate_sequences` VALUES (1, 'SimpleEntity', 1)");
+                st.execute("insert into `hibernate_sequences` VALUES ('SimpleEntity', 1)");
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
@@ -51,7 +51,7 @@ class SimpleServiceTest {
     @Test
     void testSaveAllAndGetWhenSequenceExistsButGreaterThanIncrementSize() {
         try (Connection con = dataSource.getConnection(); Statement st = con.createStatement();) {
-            st.execute("insert into `hibernate_sequences` VALUES (1, 'SimpleEntity', 20000)");
+            st.execute("insert into `hibernate_sequences` VALUES ('SimpleEntity', 20000)");
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
